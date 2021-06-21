@@ -1,4 +1,4 @@
-import React, { memo, forwardRef, useImperativeHandle, useRef, useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 
 import { Input } from "antd";
@@ -7,24 +7,18 @@ import { debounce } from "@/utils/methods.js";
 
 import { HeaderStyle, HeaderLeft, HeaderRight } from "./style";
 
-const Xheader = function (props, ref) {
+const Xheader = function (props) {
   // const history = props.history;
   const [showBar, setShowBar] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
-    // console.log(location);
-    if (location.pathname === "/") {
+    if (location.pathname === "/discover") {
       setShowBar(false);
     } else {
       setShowBar(true);
     }
   }, [location]);
-
-  const htmlH = useRef();
-  useImperativeHandle(ref, () => ({
-    height: htmlH.current.offsetHeight,
-  }));
 
   const keyEnter = function (e) {
     if (e.keyCode === 13) {
@@ -33,15 +27,13 @@ const Xheader = function (props, ref) {
   };
 
   return (
-    <HeaderStyle ref={htmlH}>
+    <HeaderStyle className={props.className}>
       <div className="wrap-v1">
         <HeaderLeft>
           <a href="/" className="discover-logo">
             music
           </a>
-          <NavLink exact to="/">
-            发现音乐
-          </NavLink>
+          <NavLink to="/discover">发现音乐</NavLink>
           <NavLink to="/my">我的音乐</NavLink>
           <NavLink to="/friend">朋友</NavLink>
           <a href="https://www.yuque.com/jonesxie/daydayup" rel="noreferrer" target="_blank">
@@ -67,4 +59,4 @@ const Xheader = function (props, ref) {
   );
 };
 
-export default memo(forwardRef(Xheader));
+export default memo(Xheader);

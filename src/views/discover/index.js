@@ -1,5 +1,15 @@
 import React, { memo } from "react";
+import { renderRoutes } from "react-router-config";
 
-export default memo(function Xdiscover() {
-  return <div>发现页</div>;
+import Hrouter from "./components/header-router";
+
+export default memo(function Xdiscover(props) {
+  const routes = props.route.routes;
+  return (
+    <div>
+      <Hrouter />
+      发现页
+      {renderRoutes(routes)}
+    </div>
+  );
 });
